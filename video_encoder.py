@@ -101,11 +101,12 @@ class VideoEncoder(object):
                                     int(float(units[2]) * 1000)
 
                         if duration and progress_callback:
-                            progress_callback(
-                                float(progress_match.group(1)) * 1000,
-                                duration
-                            )
+                            units = progress_match.group(1).split(":")
+                            progress = (int(units[0]) * 60 * 60 * 1000) + \
+                                       (int(units[1]) * 60 * 1000) + \
+                                       int(float(units[2]) * 1000)
 
+                            progress_callback(progress, duration)
                     else:
                         header += line
         else:
